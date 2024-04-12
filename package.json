@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "mongoose": "^8.3.1",
     "next": "14.2.0",
+    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@types/node": "20.12.7",
+    "@types/react": "18.2.77",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.0",
     "eslint-plugin-react": "^7.34.1",
