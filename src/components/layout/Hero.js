@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Right from "../icons/Right";
+import Right from "@/components/icons/Right";
 
 export default function Hero() {
     return (
@@ -27,7 +27,6 @@ export default function Hero() {
                     </button>
                 </div>
             </div>
-
             <div className="relative">
                 <Image src={'/pizza.png'} layout={"fill"} objectFit={"contain"} alt={'pizza'} />
             </div>
