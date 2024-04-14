@@ -13,20 +13,8 @@ export default function LoginPage() {
         e.preventDefault();
         setLoginInProgress(true);
 
-        await signIn('credentials', { email, password });
+        await signIn('credentials', { email, password, callbackUrl: '/' });
 
-        // const {ok} = await fetch("/api/login", {
-        //     body: JSON.stringify({ email, password }),
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     method: "POST",
-        // });
-        // if (ok) {
-
-        // } else {
-
-        // }
         setLoginInProgress(false);
     }
 
@@ -48,7 +36,7 @@ export default function LoginPage() {
                 <div className="my-4 text-center text-gray-500">
                     or login with provider
                 </div>
-                <button className="flex gap-4 justify-center">
+                <button onClick={() => signIn('google', {callbackUrl:'/'})} className="flex gap-4 justify-center">
                     <Image src={'/google.png'} alt={""} width={24} height={24} />
                     Login with Google
                 </button>
