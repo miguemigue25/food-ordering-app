@@ -24,7 +24,7 @@ export default function RegisterPage() {
                 "Content-Type": "application/json"
             },
         });
-        
+
         if (response.ok) {
             setUserCreated(true);
         } else {
@@ -70,6 +70,12 @@ export default function RegisterPage() {
                     <Image src={'/google.png'} alt={""} width={24} height={24} />
                     Login with Google
                 </button>
+                <div className="text-center my-4 text-gray-500 border-t pt-4">
+                    Existing account?{' '}
+                    <Link className="underline" href={'/login'}>
+                        Login here &raquo;
+                    </Link>
+                </div>
             </form>
         </section>
     );
