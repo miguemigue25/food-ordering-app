@@ -22,9 +22,12 @@ export default function Header() {
       </nav>
       <nav className="flex items-center gap-8 text-gray-500 font-semibold">
         {status === 'authenticated' && (
-          <button onClick={() => signOut()} className="bg-primary rounded-full text-white px-8 py-2">
-            Logout
-          </button>
+          <>
+            <Link href={'/profile'}>Profile</Link>
+            <button onClick={() => signOut()} className="bg-primary rounded-full text-white px-8 py-2">
+              Logout
+            </button>
+          </>
         )}
         {status === 'unauthenticated' && (
           <>
