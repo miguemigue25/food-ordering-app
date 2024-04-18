@@ -9,14 +9,17 @@ export async function PUT(req) {
     const session = await getServerSession(authOptions);
     const email = session.user.email;
 
-    if ('name' in data) {
-        // update username
-        // const result = await User.updateOne({ email }, { name: data.name });
-        // const user = await User.findOne({ email });
-        // user.name = data.name;
-        // await user.save();
-        // console.log({ email, update: { name: data.name }, result });
-        await User.updateOne({email}, {name: data.name});
-    }
+    await User.updateOne({ email }, data);
+
     return Response.json(true);
+}
+
+export async function GET() {
+    mongoose.connect(process.env.MONGO_URL);
+    const data = await req.json();
+    const session = await getServerSession(authOptions);
+    const email = session.user.email;
+    return Response.json(
+        await User.findOne({ email })
+    );
 }
