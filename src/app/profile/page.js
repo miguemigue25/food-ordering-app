@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import InfoBox from "@/components/layout/InfoBox";
 import SuccessBox from "@/components/layout/SuccessBox";
 import toast from "react-hot-toast";
+import Link from "next/link";
+import UserTabs from "@/components/layout/UserTabs";
+import EditableImage from "@/components/layout/EditableImage";
 
 export default function ProfilePage() {
 
@@ -18,6 +21,8 @@ export default function ProfilePage() {
     const [zipCode, setZipCode] = useState('');
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [profileFetched, setProfileFetched] = useState(false);
     const { status } = session;
 
     useEffect(() => {
@@ -26,7 +31,13 @@ export default function ProfilePage() {
             setImage(session.data.user.image);
             fetch('/api/profile').then(response => {
                 response.json().then(data => {
-                    console.log(data);
+                    setPhone(data.phone);
+                    setStreetAddress(data.streetAddress);
+                    setZipCode(data.zipCode);
+                    setCity(data.city);
+                    setCountry(data.country);
+                    setIsAdmin(data.admin);
+                    setProfileFetched(true);
                 })
             });
         }
@@ -64,33 +75,7 @@ export default function ProfilePage() {
         });
     }
 
-    async function handleFileChange(e) {
-        const files = e.target.files;
-        if (files?.length === 1) {
-            const data = new FormData();
-            data.set('file', files[0]);
-
-            const uploadPromise = fetch('/api/upload', {
-                method: 'POST',
-                body: data,
-            }).then(response => {
-                if (response.ok) {
-                    return response.json().then(link => {
-                        setImage(link);
-                    })
-                }
-                throw new Error('Something went wrong!');
-            });
-
-            await toast.promise(uploadPromise, {
-                loading: 'Uploading...',
-                success: 'Upload Complete!',
-                error: 'Upload Error!',
-            });
-        }
-    }
-
-    if (status === 'loading') {
+    if (status === 'loading' || !profileFetched) {
         return 'Loading...';
     }
 
@@ -100,35 +85,72 @@ export default function ProfilePage() {
 
     return (
         <section className="mt-8">
-            <h1 className="text-center text-primary text-4xl mb-4">
-                Profile
-            </h1>
-            <div className="max-w-md mx-auto">
+            <UserTabs isAdmin={isAdmin} />
+            <div className="max-w-md mx-auto mt-8">
                 <div className="flex gap-4">
                     <div>
                         <div className="p-2 rounded-lg relative max-w-[120px]">
-                            {image && (
-                                <Image className="rounded-lg w-full h-full mb-1" src={image} width={250} height={250} alt={'avatar'} />
-                            )}
-                            <label>
-                                <input type="file" className="hidden" onChange={handleFileChange} />
-                                <span className="block border border-gray-300 rounded-lg p-2 text-center cursor-pointer">
-                                    Edit
-                                </span>
-                            </label>
+                            <EditableImage link={image} setLink={setImage}/>
                         </div>
                     </div>
                     <form className="grow" onSubmit={handleProfileInfoUpdate}>
-                        <input type="text" placeholder="First and last name" value={userName}
-                            onChange={e => setUserName(e.target.value)} />
-                        <input type="email" disabled={true} value={session.data.user.email} />
-                        <input type="tel" placeholder="Phone Number" value={phone} onChange={e => setPhone(e.target.value)} />
-                        <input type="text" placeholder="Street Address" value={streetAddress} onChange={e => setStreetAddress(e.target.value)} />
-                        <div className="flex gap-4">
-                            <input type="text" placeholder="City" value={city} onChange={e => setCity(e.target.value)} />
-                            <input type="text" placeholder="Zip Code" value={zipCode} onChange={e => setZipCode(e.target.value)} />
+                        <label>First and Last Name</label>
+                        <input
+                            type="text"
+                            placeholder="First and last name"
+                            value={userName}
+                            onChange={e => setUserName(e.target.value)}
+                        />
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            disabled={true}
+                            value={session.data.user.email}
+                            placeholder={'email'}
+                        />
+                        <label>Phone</label>
+                        <input
+                            type="tel"
+                            placeholder="Phone Number"
+                            value={phone}
+                            onChange={e => setPhone(e.target.value)}
+                        />
+                        <label>Street Address</label>
+                        <input
+                            type="text"
+                            placeholder="Street Address"
+                            value={streetAddress}
+                            onChange={e => setStreetAddress(e.target.value)}
+                        />
+                        <div className="flex gap-2">
+                            <div>
+                                <label>Zip Code</label>
+                                <input
+                                    style={{ 'margin': '0' }}
+                                    type="text"
+                                    placeholder="City"
+                                    value={city}
+                                    onChange={e => setCity(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>City</label>
+                                <input
+                                    style={{ 'margin': '0' }}
+                                    type="text"
+                                    placeholder="Zip Code"
+                                    value={zipCode}
+                                    onChange={e => setZipCode(e.target.value)}
+                                />
+                            </div>
                         </div>
-                        <input type="text" placeholder="Country" value={country} onChange={e => setCountry(e.target.value)} />
+                        <label>Country</label>
+                        <input
+                            type="text"
+                            placeholder="Country"
+                            value={country}
+                            onChange={e => setCountry(e.target.value)}
+                        />
                         <button type="submit">Save</button>
                     </form>
                 </div>
