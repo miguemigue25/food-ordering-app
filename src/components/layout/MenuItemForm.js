@@ -1,6 +1,6 @@
 import EditableImage from "@/components/layout/EditableImage";
 import MenuItemPriceProps from "@/components/layout/MenuItemPriceProps";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function MenuItemForm({ onSubmit, menuItem }) {
 
@@ -9,15 +9,24 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
     const [description, setDescription] = useState(menuItem?.description || '');
     const [basePrice, setBasePrice] = useState(menuItem?.basePrice || '');
     const [sizes, setSizes] = useState(menuItem?.sizes || []);
+    const [category, setCategory] = useState(menuItem?.category || [])
+    const [categories, setCategories] = useState([]);
     const [extraIngredientPrices, setExtraIngredientPrices] = useState(menuItem?.extraIngredientPrices || []);
 
+    useEffect(() => {
+        fetch('/api/categories').then(res => {
+            res.json().then(categories => {
+setCategories(categories);
+            });
+        });
+    },[]);
 
     return (
         <form
             onSubmit={e => onSubmit(e, {
-                image, name, description, basePrice, sizes, extraIngredientPrices
+                image, name, description, basePrice, sizes, extraIngredientPrices, category
             })}
-            className="mt-8 max-w-md mx-auto">
+            className="mt-8 max-w-2xl mx-auto">
             <div className="grid items-start gap-4" style={{ gridTemplateColumns: '.3fr .7fr' }}>
                 <div>
                     <EditableImage link={image} setLink={setImage} />
@@ -35,6 +44,12 @@ export default function MenuItemForm({ onSubmit, menuItem }) {
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                     />
+                    <label>Category</label>
+                    <select value={category} onChange={e => setCategory(e.target.value)}>
+                        {categories?.length > 0 && categories.map(c => (
+                            <option key={c._id} value={c._id}>{c.name}</option>
+                        ))}
+                    </select>
                     <label>Base Price</label>
                     <input
                         type="text"
