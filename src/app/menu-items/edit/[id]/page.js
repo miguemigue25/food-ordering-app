@@ -23,7 +23,7 @@ export default function EditMenuItemPage() {
                 setMenuItem(item);
             });
         })
-    }, []);
+    },[]);
 
     async function handleFormSubmit(e, data) {
         e.preventDefault();
@@ -70,6 +70,13 @@ export default function EditMenuItemPage() {
                 </Link>
             </div>
             <MenuItemForm menuItem={menuItem} onSubmit={handleFormSubmit} />
+            <div className="max-w-md mx-auto mt-4">
+                <div className="max-w-xs ml-auto pl-4">
+                    <button>
+                        Delete this menu item
+                    </button>
+                </div>
+            </div>
         </section>
     );
 }
