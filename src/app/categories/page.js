@@ -129,7 +129,8 @@ export default function CategoriesPage() {
                             {c.name}
                         </div>
                         <div className="flex gap-1">
-                            <button type="button"
+                            <button
+                                type="button"
                                 onClick={() => {
                                     setEditedCategory(c);
                                     setCategoryName(c.name);
