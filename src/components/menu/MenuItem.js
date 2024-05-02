@@ -8,19 +8,22 @@ import Image from "next/image";
 export default function MenuItem(menuItem) {
 
     const { image, name, description, basePrice, sizes, extraIngredientPrices } = menuItem;
-    const [selectedSize, setSelectedSize] = useState(null);
+    const [selectedSize, setSelectedSize] = useState(sizes?.[0] || null);
     const [selectedExtras, setSelectedExtras] = useState([]);
     const [showPopup, setShowPopup] = useState(false);
     const { addToCart } = useContext(CartContext);
 
     function handleAddToCartButtonClick() {
-        if (sizes.length === 0 && extraIngredientPrices.length === 0) {
-            addToCart(menuItem);
-            toast.success('Added to cart!');
-        } else {
+        const hasOptions = sizes.length > 0 || extraIngredientPrices.length > 0;
+        if (hasOptions && !showPopup) {
             setShowPopup(true);
+            return;
         }
+        addToCart(menuItem, selectedSize, selectedExtras);
+        setShowPopup(false);
+        toast.success('Added to cart!');
     }
+
 
     function handleExtraThingClick(e, extraThing) {
         const checked = e.target.checked;
@@ -36,7 +39,7 @@ export default function MenuItem(menuItem) {
     let selectedPrice = basePrice;
     if (selectedSize) {
         selectedPrice += selectedSize.price;
-    } 
+    }
 
     if (selectedExtras?.length > 0) {
         for (const extra of selectedExtras) {
@@ -49,8 +52,10 @@ export default function MenuItem(menuItem) {
     return (
         <>
             {showPopup && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center">
-                    <div className="my-8 bg-white p-2 rounded-lg max-w-md">
+                <div onClick={() => setShowPopup(false)}
+                    className="fixed inset-0 bg-black/80 flex items-center justify-center">
+                    <div onClick={e => e.stopPropagation()}
+                        className="my-8 bg-white p-2 rounded-lg max-w-md">
                         <div className="overflow-y-scroll p-2" style={{ maxHeight: 'calc(100vh - 100px' }}>
                             <Image
                                 src={image}
@@ -76,21 +81,27 @@ export default function MenuItem(menuItem) {
                             )}
                             {extraIngredientPrices?.length > 0 && (
                                 <div className="py-2">
-                                    <h3 className="text-center text-gray-700">Pick your extra ingredients</h3>
+                                    <h3 className="text-center text-gray-700">Any extras?</h3>
                                     {extraIngredientPrices.map(extraThing => (
                                         <label key={extraThing._id} className="flex items-center gap-2 p-4 border rounded-md mb-1">
-                                            <input 
-                                            type="checkbox" 
-                                            onClick={e => handleExtraThingClick(e, extraThing)}
-                                            name={extraThing.name} />
+                                            <input
+                                                type="checkbox"
+                                                onClick={e => handleExtraThingClick(e, extraThing)}
+                                                name={extraThing.name} />
                                             {extraThing.name} +${extraThing.price}
                                         </label>
                                     ))}
                                 </div>
                             )}
-                            <button className="primary"
+                            <button className="primary sticky bottom-2"
+                                onClick={handleAddToCartButtonClick}
                                 type="button">
                                 Add to cart ${selectedPrice}
+                            </button>
+                            <button
+                                className="mt-2"
+                                onClick={() => setShowPopup(false)}>
+                                Cancel
                             </button>
                         </div>
                     </div>
