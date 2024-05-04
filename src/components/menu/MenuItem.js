@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "@/components/AppContext";
 import MenuItemTile from "@/components/menu/MenuItemTile";
+import FlyingButton from 'react-flying-item';
 import toast from "react-hot-toast";
 import Image from "next/image";
 
@@ -13,15 +14,18 @@ export default function MenuItem(menuItem) {
     const [showPopup, setShowPopup] = useState(false);
     const { addToCart } = useContext(CartContext);
 
-    function handleAddToCartButtonClick() {
+    async function handleAddToCartButtonClick() {
         const hasOptions = sizes.length > 0 || extraIngredientPrices.length > 0;
         if (hasOptions && !showPopup) {
             setShowPopup(true);
             return;
         }
         addToCart(menuItem, selectedSize, selectedExtras);
+        await new Promise(resolve => setTimeout(resolve, 1000));
         setShowPopup(false);
-        toast.success('Added to cart!');
+        toast.success('Added to cart!', {
+            position: 'top-right',
+        })
     }
 
 
@@ -93,11 +97,15 @@ export default function MenuItem(menuItem) {
                                     ))}
                                 </div>
                             )}
-                            <button className="primary sticky bottom-2"
-                                onClick={handleAddToCartButtonClick}
-                                type="button">
-                                Add to cart ${selectedPrice}
-                            </button>
+                            <FlyingButton
+                                targetTop={'5%'}
+                                targetLeft={'95%'}
+                                src={image}>
+                                <div className="primary sticky bottom-2"
+                                    onClick={handleAddToCartButtonClick}>
+                                    Add to cart ${selectedPrice}
+                                </div>
+                            </FlyingButton>
                             <button
                                 className="mt-2"
                                 onClick={() => setShowPopup(false)}>
