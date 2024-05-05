@@ -50,9 +50,7 @@ export default function MenuItem(menuItem) {
             selectedPrice += extra.price;
         }
     }
-
-    selectedPrice = +selectedPrice;
-
+    
     return (
         <>
             {showPopup && (
@@ -75,10 +73,10 @@ export default function MenuItem(menuItem) {
                                         <label key={size._id} className="flex items-center gap-2 p-4 border rounded-md mb-1">
                                             <input
                                                 type="radio"
-                                                onClick={() => setSelectedSize(size)}
+                                                onChange={() => setSelectedSize(size)}
                                                 checked={selectedSize?.name === size.name}
                                                 name="size" />
-                                            {size.name} ${basePrice} + ${size.price}
+                                            {size.name} ${basePrice + size.price}
                                         </label>
                                     ))}
                                 </div>
@@ -90,7 +88,7 @@ export default function MenuItem(menuItem) {
                                         <label key={extraThing._id} className="flex items-center gap-2 p-4 border rounded-md mb-1">
                                             <input
                                                 type="checkbox"
-                                                onClick={e => handleExtraThingClick(e, extraThing)}
+                                                onChange={e => handleExtraThingClick(e, extraThing)}
                                                 name={extraThing.name} />
                                             {extraThing.name} +${extraThing.price}
                                         </label>

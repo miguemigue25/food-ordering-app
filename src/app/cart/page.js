@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import Trash from "@/components/icons/Trash";
 import AddressInputs from "@/components/layout/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
 
@@ -27,13 +28,41 @@ export default function CartPage() {
         }
     }, [profileData]);
 
-    let total = 0;
+    let subtotal = 0;
     for (const p of cartProducts) {
-        total += cartProductPrice(p);
+        subtotal += cartProductPrice(p);
     }
 
     function handleAddressChange(propName, value) {
         setAddress(prevAddress => ({ ...prevAddress, [propName]: value }));
+    }
+
+    async function proceedToCheckout(e) {
+        e.preventDefault();
+
+        const promise = new Promise((resolve, reject) => {
+            fetch('/api/checkout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    address,
+                    cartProducts,
+                }),
+            }).then(async (response) => {
+                if (response.ok) {
+                    resolve();
+                    window.location = await response.json();
+                } else {
+                    reject();
+                }
+            });
+        });
+
+        await toast.promise(promise, {
+            loading: 'Preparing your order...',
+            success: 'Redirecting to payment...',
+            error: 'Something went wrong... Please try again later',
+        })
     }
 
     return (
@@ -47,12 +76,12 @@ export default function CartPage() {
                         <div>No products in your shopping cart</div>
                     )}
                     {cartProducts?.length > 0 && cartProducts.map((product, index) => (
-                        <div key={index} className="flex gap-4 border-b py-4">
+                        <div key={index} className="flex items-center gap-4 border-b py-4">
                             <div className="w-24">
                                 <Image width={240} height={240} src={product.image} alt={''} />
                             </div>
                             <div className="grow">
-                                <h3 className="font-semibold">
+                                <h3 className="font-semibold pl-2">
                                     {product.name}
                                 </h3>
                                 {product.size && (
@@ -79,20 +108,26 @@ export default function CartPage() {
                             </div>
                         </div>
                     ))}
-                    <div className="py-2 text-right pr-16">
-                        <span className="text-gray-500">
-                            Subtotal:
-                        </span>
-                        <span className="text-lg font-semibold pl-2">${total}</span>
+                    <div className="py-2 pr-16 flex justify-end items-center">
+                        <div className="text-gray-500">
+                            Subtotal:<br />
+                            Delivery:<br />
+                            Total:
+                        </div>
+                        <div className="font-semibold pl-2 text-right">
+                            ${subtotal}<br />
+                            $5<br />
+                            ${subtotal + 5}
+                        </div>
                     </div>
                 </div>
                 <div className="bg-gray-200 p-4 rounded-lg">
                     <h2>Checkout</h2>
-                    <form>
+                    <form onClick={proceedToCheckout}>
                         <AddressInputs
                             addressPops={address}
                             setAddressProps={handleAddressChange} />
-                        <button type="submit">Pay ${total}</button>
+                        <button type="submit">Pay ${subtotal + 5}</button>
                     </form>
                 </div>
             </div>
