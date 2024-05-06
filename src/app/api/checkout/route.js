@@ -54,12 +54,15 @@ export async function POST(req) {
     }
 
     const stripeSession = await stripe.checkout.sessions.create({
-        line_items: [],
+        line_items: stripeLineItems,
         mode: 'payment',
         customer_email: userEmail,
         success_url: process.env.NEXTAUTH_URL + 'cart?success=1',
         cancel_url: process.env.NEXTAUTH_URL + 'cart?canceled=1',
         metadata: { orderId: orderDoc._id.toString()},
+        payment_intent_data: {
+            metadata: {orderId: orderDoc._id.toString()},
+        },
         shipping_options: [
             {
                 shipping_rate_data: {

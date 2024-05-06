@@ -57,11 +57,10 @@ export default function CartPage() {
                 }
             });
         });
-
         await toast.promise(promise, {
             loading: 'Preparing your order...',
             success: 'Redirecting to payment...',
-            error: 'Something went wrong... Please try again later',
+            error: 'Something went wrong...Please try again later',
         })
     }
 
