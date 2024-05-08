@@ -1,8 +1,8 @@
 "use client";
 import EditableImage from "@/components/layout/EditableImage";
+import AddressInputs from "@/components/layout/AddressInputs";
+import { useProfile } from "@/components/UseProfile";
 import { useState } from "react";
-import { useProfile } from "../UseProfile";
-import AddressInputs from "./AddressInputs";
 
 export default function UserForm({ user, onSave }) {
 
@@ -25,7 +25,7 @@ export default function UserForm({ user, onSave }) {
     }
 
     return (
-        <div className="flex gap-4">
+        <div className="md:flex gap-4">
             <div>
                 <div className="p-2 rounded-lg relative max-w-[120px]">
                     <EditableImage link={image} setLink={setImage} />
@@ -53,7 +53,8 @@ export default function UserForm({ user, onSave }) {
                     value={user.email}
                     placeholder={'email'}
                 />
-                <AddressInputs addressPops={{phone, streetAddress, city, zipCode, country}} 
+                <AddressInputs
+                    addressPops={{ phone, streetAddress, city, zipCode, country }}
                     setAddressProps={handleAddressChange}
                 />
                 {loggedInUserData.admin && (

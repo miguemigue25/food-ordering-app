@@ -1,15 +1,10 @@
 "use client";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
-import InfoBox from "@/components/layout/InfoBox";
-import SuccessBox from "@/components/layout/SuccessBox";
-import toast from "react-hot-toast";
-import Link from "next/link";
 import UserTabs from "@/components/layout/UserTabs";
-import EditableImage from "@/components/layout/EditableImage";
 import UserForm from "@/components/layout/UserForm";
+import toast from "react-hot-toast";
 
 export default function ProfilePage() {
 
