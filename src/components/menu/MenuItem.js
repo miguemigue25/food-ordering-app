@@ -89,6 +89,7 @@ export default function MenuItem(menuItem) {
                                             <input
                                                 type="checkbox"
                                                 onChange={e => handleExtraThingClick(e, extraThing)}
+                                                checked={selectedExtras.map(e => e._id).includes(extraThing._id)}
                                                 name={extraThing.name} />
                                             {extraThing.name} +${extraThing.price}
                                         </label>

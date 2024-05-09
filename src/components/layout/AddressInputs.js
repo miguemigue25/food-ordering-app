@@ -1,6 +1,6 @@
-export default function AddressInputs({ addressPops, setAddressProps, disabled = false }) {
+export default function AddressInputs({ addressProps, setAddressProps, disabled = false }) {
 
-    const { phone, streetAddress, zipCode, city, country } = addressPops;
+    const { phone, streetAddress, zipCode, city, country } = addressProps;
 
     return (
         <>
@@ -9,7 +9,7 @@ export default function AddressInputs({ addressPops, setAddressProps, disabled =
                 disabled={disabled}
                 type="tel"
                 placeholder="Phone Number"
-                value={phone}
+                value={phone || ''}
                 onChange={e => setAddressProps('phone', e.target.value)}
             />
             <label>Street Address</label>
@@ -17,7 +17,7 @@ export default function AddressInputs({ addressPops, setAddressProps, disabled =
                 disabled={disabled}
                 type="text"
                 placeholder="Street Address"
-                value={streetAddress}
+                value={streetAddress || ''}
                 onChange={e => setAddressProps('streetAddress', e.target.value)}
             />
             <div className="grid grid-cols-2 gap-2">
@@ -28,7 +28,7 @@ export default function AddressInputs({ addressPops, setAddressProps, disabled =
                         style={{ 'margin': '0' }}
                         type="text"
                         placeholder="Zip Code"
-                        value={zipCode}
+                        value={zipCode || ''}
                         onChange={e => setAddressProps('zipCode', e.target.value)}
                     />
                 </div>
@@ -39,7 +39,7 @@ export default function AddressInputs({ addressPops, setAddressProps, disabled =
                         style={{ 'margin': '0' }}
                         type="text"
                         placeholder="City"
-                        value={city}
+                        value={city || ''}
                         onChange={e => setAddressProps('city', e.target.value)}
                     />
                 </div>
@@ -50,7 +50,7 @@ export default function AddressInputs({ addressPops, setAddressProps, disabled =
                 disabled={disabled}
                 type="text"
                 placeholder="Country"
-                value={country}
+                value={country || ''}
                 onChange={e => setAddressProps('country', e.target.value)}
             />
         </>

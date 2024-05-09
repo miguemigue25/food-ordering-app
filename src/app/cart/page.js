@@ -1,9 +1,7 @@
 "use client";
 import { CartContext, cartProductPrice } from "@/components/AppContext";
 import SectionHeaders from "@/components/layout/Sectionheaders";
-import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import Trash from "@/components/icons/Trash";
 import CartProduct from "@/components/menu/CartProduct";
 import AddressInputs from "@/components/layout/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
@@ -117,7 +115,7 @@ export default function CartPage() {
                     <h2>Checkout</h2>
                     <form onClick={proceedToCheckout}>
                         <AddressInputs
-                            addressPops={address}
+                            addressProps={address}
                             setAddressProps={handleAddressChange} />
                         <button type="submit">Pay ${subtotal + 5}</button>
                     </form>

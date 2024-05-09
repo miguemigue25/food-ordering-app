@@ -54,7 +54,7 @@ export default function UserForm({ user, onSave }) {
                     placeholder={'email'}
                 />
                 <AddressInputs
-                    addressPops={{ phone, streetAddress, city, zipCode, country }}
+                    addressProps={{ phone, streetAddress, city, zipCode, country }}
                     setAddressProps={handleAddressChange}
                 />
                 {loggedInUserData.admin && (
@@ -63,7 +63,7 @@ export default function UserForm({ user, onSave }) {
                             <input
                                 id="adminCb" type="checkbox" className="" value={'1'}
                                 checked={admin}
-                                onClick={e => setAdmin(e.target.checked)}
+                                onChange={e => setAdmin(e.target.checked)}
                             />
                             <span>Admin</span>
                         </label>
