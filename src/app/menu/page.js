@@ -3,6 +3,7 @@ import SectionHeaders from "@/components/layout/Sectionheaders";
 import MenuItem from "@/components/menu/MenuItem";
 import { useEffect, useState } from "react";
 
+
 export default function MenuPage() {
 
     const [categories, setCategories] = useState([]);

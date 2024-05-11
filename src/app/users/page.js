@@ -1,8 +1,9 @@
 "use client";
 import { useProfile } from "@/components/UseProfile";
 import UserTabs from "@/components/layout/UserTabs";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import Link from "next/link";
+
 
 export default function UsersPage() {
 

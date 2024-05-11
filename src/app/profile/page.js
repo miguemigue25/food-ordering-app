@@ -1,10 +1,11 @@
 "use client";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
 import UserTabs from "@/components/layout/UserTabs";
 import UserForm from "@/components/layout/UserForm";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
+
 
 export default function ProfilePage() {
 

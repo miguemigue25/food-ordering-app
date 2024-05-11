@@ -9,5 +9,4 @@ export default function SectionHeaders({ subHeader, mainHeader }) {
             </h2>
         </>
     );
-
 }

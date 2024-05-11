@@ -1,9 +1,9 @@
 "use client";
+import DeleteButton from "@/components/DeleteButton";
+import { useProfile } from "@/components/UseProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import { useEffect, useState } from "react";
-import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
-import DeleteButton from "@/components/DeleteButton";
 
 
 export default function CategoriesPage() {

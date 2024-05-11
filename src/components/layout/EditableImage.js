@@ -1,5 +1,6 @@
-import Image from "next/image";
 import toast from "react-hot-toast";
+import Image from "next/image";
+
 
 export default function EditableImage({ link, setLink }) {
 

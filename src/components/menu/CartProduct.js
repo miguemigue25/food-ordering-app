@@ -1,6 +1,7 @@
-import Image from "next/image";
-import Trash from "@/components/icons/Trash";
 import { cartProductPrice } from "@/components/AppContext";
+import Trash from "@/components/icons/Trash";
+import Image from "next/image";
+
 
 export default function CartProduct({ product, index, onRemove }) {
     return (

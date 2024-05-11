@@ -2,6 +2,7 @@ import MenuItemPriceProps from "@/components/layout/MenuItemPriceProps";
 import EditableImage from "@/components/layout/EditableImage";
 import { useEffect, useState } from "react";
 
+
 export default function MenuItemForm({ onSubmit, menuItem }) {
 
     const [image, setImage] = useState(menuItem?.image || '');

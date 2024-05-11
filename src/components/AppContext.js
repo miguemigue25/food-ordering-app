@@ -1,7 +1,8 @@
 "use client";
-import { SessionProvider } from "next-auth/react";
 import { createContext, useEffect, useState } from "react";
+import { SessionProvider } from "next-auth/react";
 import toast from "react-hot-toast";
+
 
 export const CartContext = createContext({});
 

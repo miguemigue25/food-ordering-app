@@ -2,9 +2,10 @@
 import { useProfile } from "@/components/UseProfile";
 import UserTabs from "@/components/layout/UserTabs";
 import Right from "@/components/icons/Right";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 
 export default function MenuItemsPage() {
 
@@ -58,5 +59,5 @@ export default function MenuItemsPage() {
                 </div>
             </div>
         </section>
-    )
+    );
 }

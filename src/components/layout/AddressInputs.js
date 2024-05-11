@@ -43,7 +43,6 @@ export default function AddressInputs({ addressProps, setAddressProps, disabled 
                         onChange={e => setAddressProps('city', e.target.value)}
                     />
                 </div>
-
             </div>
             <label>Country</label>
             <input

@@ -1,8 +1,9 @@
 "use client";
-import Image from "next/image";
-import MenuItem from "../menu/MenuItem";
 import SectionHeaders from "./Sectionheaders";
 import { useEffect, useState } from "react";
+import MenuItem from "../menu/MenuItem";
+import Image from "next/image";
+
 
 export default function HomeMenu() {
 
@@ -40,6 +41,5 @@ export default function HomeMenu() {
                 </div>
             </div>
         </section>
-
     );
 }

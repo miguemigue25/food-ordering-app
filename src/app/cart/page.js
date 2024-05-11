@@ -1,11 +1,12 @@
 "use client";
 import { CartContext, cartProductPrice } from "@/components/AppContext";
 import SectionHeaders from "@/components/layout/Sectionheaders";
+import AddressInputs from "@/components/layout/AddressInputs";
 import { useContext, useEffect, useState } from "react";
 import CartProduct from "@/components/menu/CartProduct";
-import AddressInputs from "@/components/layout/AddressInputs";
 import { useProfile } from "@/components/UseProfile";
 import toast from "react-hot-toast";
+
 
 export default function CartPage() {
 
