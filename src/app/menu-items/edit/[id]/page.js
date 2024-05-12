@@ -25,6 +25,7 @@ export default function EditMenuItemPage() {
                 setMenuItem(item);
             });
         })
+        // eslint-disable-next-line
     }, []);
 
     async function handleFormSubmit(e, data) {

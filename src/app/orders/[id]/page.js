@@ -29,6 +29,7 @@ export default function OrderPage() {
                 });
             })
         }
+        // eslint-disable-next-line
     }, []);
 
     let subtotal = 0;

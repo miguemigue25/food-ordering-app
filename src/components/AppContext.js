@@ -29,6 +29,7 @@ export function AppProvider({ children }) {
         if (ls && ls.getItem('cart')) {
             setCartProducts(JSON.parse(ls.getItem('cart')));
         }
+        // eslint-disable-next-line
     }, []);
 
     function clearCart() {

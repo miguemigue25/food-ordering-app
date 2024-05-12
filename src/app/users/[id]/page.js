@@ -19,6 +19,7 @@ export default function EditUserPage() {
                 setUser(user);
             });
         })
+        // eslint-disable-next-line
     }, []);
 
     async function handleSaveButtonClick(e, data) {
