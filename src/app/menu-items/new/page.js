@@ -16,6 +16,7 @@ export default function NewMenuItemPage() {
 
     async function handleFormSubmit(e, data) {
         e.preventDefault();
+
         const savingPromise = new Promise(async (resolve, reject) => {
             const response = fetch('/api/menu-items', {
                 method: 'POST',
@@ -57,7 +58,7 @@ export default function NewMenuItemPage() {
                     <span>Show all menu items</span>
                 </Link>
             </div>
-           <MenuItemForm menuItem={null} onSubmit={handleFormSubmit} />
+            <MenuItemForm menuItem={null} onSubmit={handleFormSubmit} />
         </section>
     );
 }
