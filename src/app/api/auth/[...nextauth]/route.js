@@ -1,12 +1,12 @@
 // import clientPromise from "@/libs/mongoConnect";
+// import { UserInfo } from "@/models/UserInfo";
 // import bcrypt from "bcrypt";
 // import * as mongoose from "mongoose";
-// import { User } from "@/models/User";
+// import { User } from '@/models/User';
 // import NextAuth, { getServerSession } from "next-auth";
 // import CredentialsProvider from "next-auth/providers/credentials";
 // import GoogleProvider from "next-auth/providers/google";
-// import { MongoDBAdapter } from "@auth/mongodb-adapter";
-// import { UserInfo } from "@/models/UserInfo";
+// import { MongoDBAdapter } from "@auth/mongodb-adapter"
 
 // export const authOptions = {
 //   secret: process.env.SECRET,
@@ -41,52 +41,33 @@
 //   ],
 // };
 
-
-// export async function isAdmin(req) {
-//   const session = await getServerSession(req, authOptions);
+// export async function isAdmin() {
+//   const session = await getServerSession(authOptions);
 //   const userEmail = session?.user?.email;
-//   if (!userEmail) return false;
+//   if (!userEmail) {
+//     return false;
+//   }
 //   const userInfo = await UserInfo.findOne({ email: userEmail });
-//   if (!userInfo) return false;
+//   if (!userInfo) {
+//     return false;
+//   }
 //   return userInfo.admin;
 // }
 
-// export default async function handler(req, res) {
-//   const isAdminValue = await isAdmin(req);
-//   if (req.method === "GET") {
-//     return res.status(200).json({ isAdmin: isAdminValue });
-//   } else if (req.method === "POST") {
-//     return res.status(200).json({ message: "POST request received" });
-//   } else {
-//     return res.status(405).json({ message: "Method not allowed" });
-//   }
-// }
+// const handler = NextAuth(authOptions);
 
-// // export async function isAdmin() {
-// //   const session = await getServerSession(authOptions);
-// //   const userEmail = session?.user?.email;
-// //   if (!userEmail) {
-// //     return false;
-// //   }
-// //   const userInfo = await UserInfo.findOne({ email: userEmail });
-// //   if (!userInfo) {
-// //     return false;
-// //   }
-// //   return userInfo.admin;
-// // }
+// export { handler as GET, handler as POST }
 
-// // const handler = NextAuth(authOptions);
 
 import clientPromise from "@/libs/mongoConnect";
+import { UserInfo } from "@/models/UserInfo";
 import bcrypt from "bcrypt";
 import * as mongoose from "mongoose";
-import { User } from "@/models/User";
+import { User } from '@/models/User';
 import NextAuth, { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import { UserInfo } from "@/models/UserInfo";
-
+import { MongoDBAdapter } from "@auth/mongodb-adapter"
 
 export const authOptions = {
   secret: process.env.SECRET,
@@ -119,24 +100,33 @@ export const authOptions = {
   ],
 };
 
-export async function isAdmin(req) {
-  const session = await getServerSession(req, authOptions);
+export default async function handler(req) {
+  const session = await getServerSession(req, res, authOptions);
   const userEmail = session?.user?.email;
-  if (!userEmail) return false;
+  if (!userEmail) {
+    return new Response(JSON.stringify({ isAdmin: false }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
   const userInfo = await UserInfo.findOne({ email: userEmail });
-  if (!userInfo) return false;
-  return userInfo.admin;
-}
-
-export async function GET(req) {
-  const isAdminValue = await isAdmin(req);
-  return new Response(JSON.stringify({ isAdmin: isAdminValue }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
-}
-
-export async function POST(req) {
-  return new Response(JSON.stringify({ message: "POST request received" }), {
-    headers: { 'Content-Type': 'application/json' },
-  });
+  if (!userInfo) {
+    return new Response(JSON.stringify({ isAdmin: false }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+  const isAdminValue = userInfo.admin;
+  if (req.method === "GET") {
+    return new Response(JSON.stringify({ isAdmin: isAdminValue }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } else if (req.method === "POST") {
+    return new Response(JSON.stringify({ message: "POST request received" }), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } else {
+    return new Response(JSON.stringify({ message: "Method not allowed" }), {
+      headers: { 'Content-Type': 'application/json' },
+      status: 405,
+    });
+  }
 }
