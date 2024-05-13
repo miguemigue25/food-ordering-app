@@ -84,8 +84,10 @@ import { User } from "@/models/User";
 import { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { UserInfo } from "@/models/UserInfo";
+
+
 export const authOptions = {
   secret: process.env.SECRET,
   adapter: MongoDBAdapter(clientPromise),
@@ -116,6 +118,7 @@ export const authOptions = {
     }),
   ],
 };
+
 export async function isAdmin(req) {
   const session = await getServerSession(req, authOptions);
   const userEmail = session?.user?.email;
@@ -124,15 +127,16 @@ export async function isAdmin(req) {
   if (!userInfo) return false;
   return userInfo.admin;
 }
+
 export async function GET(req) {
   const isAdminValue = await isAdmin(req);
   return new Response(JSON.stringify({ isAdmin: isAdminValue }), {
     headers: { 'Content-Type': 'application/json' },
   });
 }
+
 export async function POST(req) {
   return new Response(JSON.stringify({ message: "POST request received" }), {
     headers: { 'Content-Type': 'application/json' },
   });
 }
-
