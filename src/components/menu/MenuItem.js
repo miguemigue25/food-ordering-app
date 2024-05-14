@@ -96,7 +96,7 @@ export default function MenuItem(menuItem) {
                                 </div>
                             )}
                             <button
-                                className="primary sticky bottom-2"
+                                className="mt-4 bg-primary text-white rounded-full px-8 py-2"
                                 onClick={handleAddToCartButtonClick}>
                                 Add to cart ${selectedPrice}
                             </button>

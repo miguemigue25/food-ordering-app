@@ -2,8 +2,8 @@ export default function AddToCartButton({ hasSizesOrExtras, onClick, basePrice, 
 
     if (!hasSizesOrExtras) {
         return (
-            <div className='button mt-4'>
-                <button>
+            <div>
+                <button type="button" className="mt-4 bg-primary text-white rounded-full px-8 py-2">
                     <div onClick={onClick}>
                         Add to cart ${basePrice}
                     </div>
