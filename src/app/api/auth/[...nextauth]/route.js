@@ -7,6 +7,7 @@ import NextAuth, { getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { MongoDBAdapter } from "@auth/mongodb-adapter"
+import { NextApiRequest, NextApiResponse } from "next";
 
 export const authOptions = {
   secret: process.env.SECRET,
@@ -51,7 +52,7 @@ export async function isAdmin() {
   if (!userInfo) {
     return false;
   }
-  return userInfo.admin;
+  return userInfo.isAdmin;
 }
 
 const handler = NextAuth(authOptions);
