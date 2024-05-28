@@ -15,20 +15,22 @@ export default function Home() {
         />
         <div className="text-gray-500 max-w-md mx-auto mt-4 flex flex-col gap-4">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magni minima odit recusandae.
-            Illum ipsa non repudiandae? Eum ipsam iste quos suscipit tempora? Aperiam esse fugiat
-            inventore laboriosam officiis guam rem!
+            Here at Twin&apos;s Pizza we are dedicated to
+            more than just crafting delicious pies we are committed to
+            delivering an outstanding experience to every customer, every time.
+            With a focus on quality ingredients, mouthwatering flavors, and
+            timely delivery,
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Magni minima odit recusandae.
-            Illum ipsa non repudiandae? Eum ipsam iste quos suscipit tempora? Aperiam esse fugiat
-            inventore laboriosam officiis guam rem!
+            We aim to be your top choice for satisfying your pizza cravings. Our
+            team consists of passionate pizza enthusiasts who take pride in
+            every pie we create. Whether you are enjoying a classic pepperoni or
+            exploring one of our unique specialties, we strive to exceed your
+            expectations with every bite.
           </p>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-            ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            At Twin&apos;s Pizza, our mission is simple: to deliver happiness, one slice
+            at a time.
           </p>
         </div>
       </section>
