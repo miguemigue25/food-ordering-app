@@ -10,8 +10,8 @@ export default function UserTabs({ isAdmin }) {
     return (
         <div className="flex mx-auto gap-2 tabs justify-center flex-wrap">
             <Link
-                className={path === '/profile' ? 'active' : ''}
-                href={'/profile'}
+                className={path === 'api/profile' ? 'active' : ''}
+                href={'api/profile'}
             >
                 Profile
             </Link>
